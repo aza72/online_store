@@ -1,14 +1,39 @@
+{# tutorial/templates/tutorial/people.html #}
 {% load render_table from django_tables2 %}
-{% load django_tables2 %}
-{# templates/base.html #}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Заголовок</title>
-</head>
-<body>
-    {% render_table table %}
+<!doctype html>
+<html>
+    <head>
+        <title></title>
 
-</body>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    </head>
+    <body>
+        {% render_table table %}
+    </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% load render_table from django_tables2 %}#}
+{#{% load django_tables2 %}#}
+{# templates/base.html #}
+{#<!DOCTYPE html>#}
+{#<html lang="ru">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Заголовок</title>#}
+{#</head>#}
+{#<body>#}
+{#    {% render_table table %}#}
+{##}
+{#</body>#}
+{#</html>#}

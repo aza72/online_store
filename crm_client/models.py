@@ -5,14 +5,14 @@ from django.db import models
 
 
 class Crm_client(models.Model):
-    name = models.CharField(max_length=255,verbose_name='Имя')
-    surname = models.CharField(max_length=255,verbose_name='Фамилия')
-    patronymic = models.CharField(max_length=255,verbose_name='Отчество')
-    car = models.CharField(max_length=255,verbose_name='Автомобиль')
+    name = models.CharField(blank=True,max_length=255,verbose_name='Имя')
+    surname = models.CharField(blank=True,max_length=255,verbose_name='Фамилия')
+    patronymic = models.CharField(blank=True,max_length=255,verbose_name='Отчество')
+    car = models.CharField(blank=True,max_length=255,verbose_name='Автомобиль')
     telephone = models.CharField(max_length=255,verbose_name='Телефон')
-    vin = models.CharField(max_length=255,verbose_name='VIN-номер')
-    ord = models.CharField(max_length=255,verbose_name='Заказы')
-    bonuses = models.CharField(max_length=255,verbose_name='Бонусы')
+    vin = models.CharField(blank=True,max_length=255,verbose_name='VIN-номер')
+    ord = models.CharField(blank=True,max_length=255,verbose_name='Заказы')
+    bonuses = models.CharField(blank=True,max_length=255,verbose_name='Бонусы')
     data_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
 #

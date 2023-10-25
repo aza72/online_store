@@ -1,13 +1,10 @@
 from django.urls import path
 
-from crm_client.views import view_table
-
-
-
+from crm_client.views import  clientListView
 
 from django.urls import path
 
 urlpatterns = [
-    path('client/', view_table),
+    path('client/', clientListView.as_view()),
 
 ]

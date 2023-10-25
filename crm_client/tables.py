@@ -10,8 +10,9 @@ class Crm_client_Table(tables.Table):
     vin = tables.Column( verbose_name='VIN-номер')
     ord = tables.Column( verbose_name='Заказы')
     bonuses = tables.Column( verbose_name='Бонусы')
-    data_create = tables.Column( verbose_name='Время создания')
+    data_create = tables.Column( default='Нет информации',verbose_name='Время создания')
 
     class Meta:
         model = Crm_client
         template_name = 'django_tables2/bootstrap.html'
+
