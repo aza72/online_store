@@ -8,7 +8,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     </head>
     <body>
+    <button onclick="runFunction()">Click me</button>
+    <form method="POST" >
         {% render_table table %}
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit" >Save</button>
+</form>
+
+
     </body>
 </html>
 

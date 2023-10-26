@@ -1,6 +1,6 @@
 from django.urls import path
 
-from crm_client.views import  clientListView
+from crm_client.views import clientListView, View_forms
 
 from django.urls import path
 
