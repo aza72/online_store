@@ -15,6 +15,14 @@ class Crm_client(models.Model):
     bonuses = models.CharField(blank=True,max_length=255,verbose_name='Бонусы')
     data_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
+class BrandAuto(models.Model):
+    auto_brand = models.CharField(blank=True, max_length=255, verbose_name='Марка авто')
+
+
+    def __str__(self):
+        return self.auto_brand
+
+
 #
 #
 # class payment (models.Model):
