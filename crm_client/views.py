@@ -16,18 +16,22 @@ class clientListView(SingleTableView):
     template_name = 'crm_client/base.html'
     extra_context = {'form': form}
 
-def POST(request):
+
+
+
+def dry(request):
+
     print('srabotalo')
     f=AddRecordClient(request.POST)
     f.save()
-    print('srabot')
+
 
 
 
 class CreateCRMClientView(FormView):
     template_name = 'crm_client/base.html'
     form_class = AddRecordClient
-    success_url = reverse_lazy('client')
+    #success_url = reverse_lazy('client')
 
 
     def save_client(self,form):

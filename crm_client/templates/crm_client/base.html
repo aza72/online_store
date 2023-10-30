@@ -9,13 +9,13 @@
     </head>
     <body>
 
-    <form method="POST" >
+    <form action="{% url 'client' %}" method="post">
         {% render_table table %}
         {% csrf_token %}
         {{ form.as_table }}
-<button type="submit" >Добавить</button>
+        <button type="submit" >Добавить</button>
 {#        <button onclick="save_client()">Click me</button>#}
-</form>
+    </form>
 
 
     </body>
