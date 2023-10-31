@@ -26,9 +26,13 @@
         {% csrf_token %}
         {{ form.as_table }}
         <button type="submit" >Добавить</button>
-        <button onclick="save_client()">Click me</button>
-    </form>
+{#        <button onclick="save_client()">Click me</button>#}
 
+    </form>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" name="sub" value="Удалить запись" />
+    </form>
 
     </body>
 </html>
