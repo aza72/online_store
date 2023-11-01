@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
-from crm_client.forms import AddRecordClient
+from crm_client.forms import *
 from crm_client.models import Crm_client
 from crm_client.tables import Crm_client_Table
 # Create your views here.
@@ -13,10 +13,11 @@ from django.views.generic.edit import FormView
 
 class clientListView(SingleTableView):
     form = AddRecordClient()
+    crud_f = crud_form()
     model = Crm_client
     table_class = Crm_client_Table
     template_name = 'crm_client/base.html'
-    extra_context = {'form': form}
+    extra_context = {'form': form, 'crud_f':crud_f}
 
     # def delete_client(self,request):
     #     print('delete')
@@ -39,6 +40,7 @@ class clientListView(SingleTableView):
     def delete_client(self,request):
         pks = request.POST.getlist("chek")
         print(pks)
+
 
 def mess(request,message):
     messages.success(request, message)

@@ -20,20 +20,30 @@
 
 
 
+{% render_table table %}
+
 
     <form action="{% url 'client' %}" method="post">
-        {% render_table table %}
+{#        {% render_table table %}#}
         {% csrf_token %}
         {{ form.as_table }}
         <button type="submit" >Добавить</button>
-{#        <button onclick="save_client()">Click me</button>#}
+{#        </form>#}
+    </form>
 
-    </form>
-    <form action="" method="post">
+<form action="{% url 'client' %}" method="post">
         {% csrf_token %}
+        {{ crud_f.as_table }}
         <input type="submit" name="delete" value="Удалить запись" />
-        <input type="checkbox" name="col" value="123"/>
-    </form>
+{#    <button type="submit" name="delete" >Удалить</button>#}
+</form>
+
+{#    <form action="{% url 'client' %}" method="post">#}
+{#        {% csrf_token %}#}
+{#<button onclick="save_client()">Click me</button> #}
+{#        <button type="submit" name="delete" value="Удалить запись" />#}
+{##}
+{#    </form>#}
 
     </body>
 </html>

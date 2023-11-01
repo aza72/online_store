@@ -34,3 +34,8 @@ class AddRecordClient(forms.ModelForm):
         #     #'telephone': forms.TextInput(attrs={'placeholder': 'Телефон'}),
         #     'vin': forms.TextInput(attrs={'placeholder': 'VIN-номер'}),
         # }
+
+class crud_form(forms.Form):
+    class Meta:
+        model = Crm_client
+        fields = ['name', 'surname', 'patronymic', 'car', 'telephone', 'vin']
