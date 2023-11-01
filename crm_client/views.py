@@ -17,9 +17,14 @@ class clientListView(SingleTableView):
     table_class = Crm_client_Table
     template_name = 'crm_client/base.html'
     extra_context = {'form': form}
+
+    # def delete_client(self,request):
+    #     print('delete')
+
     def post(self,request):
-        if 'sub' in request.POST:
-            print('Button')
+        if 'delete' in request.POST:
+           self.delete_client(request)
+
         if request.method == 'POST':
             f = AddRecordClient(request.POST)
             if f.is_valid():
@@ -31,9 +36,10 @@ class clientListView(SingleTableView):
             mess(request,message)
 
         return HttpResponseRedirect('/client/')
-
     def delete_client(self,request):
-        print('delete')
+        pks = request.POST.getlist("chek")
+        print(pks)
+
 def mess(request,message):
     messages.success(request, message)
 

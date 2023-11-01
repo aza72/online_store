@@ -26,7 +26,7 @@ class AddRecordClient(forms.ModelForm):
 
     class Meta:
         model = Crm_client
-        fields = ['name', 'surname', 'patronymic', 'car', 'telephone', 'vin']
+        fields = [ 'name', 'surname', 'patronymic', 'car', 'telephone', 'vin']
         # widgets = {
         #     'name': forms.TextInput(attrs={'placeholder': 'Имя'}),
         #     'surname': forms.TextInput(attrs={'placeholder': 'Фамилия'}),

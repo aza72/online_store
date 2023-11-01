@@ -8,7 +8,10 @@ class CheckBoxColumnWithName(tables.CheckBoxColumn):
     @property
     def header(self):
         return self.verbose_name
+
+
 class Crm_client_Table(tables.Table):
+    id = tables.Column(accessor='id')
     chek = CheckBoxColumnWithName(verbose_name="Выбор", accessor='pk')
     name = tables.Column(verbose_name='Имя')
     surname = tables.Column( verbose_name='Фамилия')
@@ -23,6 +26,6 @@ class Crm_client_Table(tables.Table):
     class Meta:
         model = Crm_client
         template_name = 'django_tables2/bootstrap.html'
-        sequence = ("ID","chek", "name", "surname", "patronymic", "car",
+        sequence = ("id", "chek", "name", "surname", "patronymic", "car",
                     "telephone", "vin", "ord", "bonuses", "data_create")
 
