@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView
@@ -13,11 +13,11 @@ from django.views.generic.edit import FormView
 
 class clientListView(SingleTableView):
     form = AddRecordClient()
-    crud_f = crud_form()
+
     model = Crm_client
     table_class = Crm_client_Table
     template_name = 'crm_client/base.html'
-    extra_context = {'form': form, 'crud_f':crud_f}
+    extra_context = {'form': form}
 
     # def delete_client(self,request):
     #     print('delete')
@@ -25,21 +25,37 @@ class clientListView(SingleTableView):
     def post(self,request):
         if 'delete' in request.POST:
            self.delete_client(request)
+           return HttpResponseRedirect('/client/')
 
         if request.method == 'POST':
-            f = AddRecordClient(request.POST)
-            if f.is_valid():
-                f.save()
+            form = AddRecordClient(request.POST)
+            if form.is_valid():
+
+                form.save()
                 message = 'Запись добавлена успешно'
                 mess(request,message)
-        else:
-            message = 'Ошибка, запись не добавлена!'
-            mess(request,message)
+
+            else:
+                return HttpResponse("Invalid data")
+                message = 'Ошибка, запись не добавлена!'
+                mess(request,message)
+                return render(request, 'crm_client/base.html', {'form':form})
 
         return HttpResponseRedirect('/client/')
     def delete_client(self,request):
         pks = request.POST.getlist("chek")
+        p = request.POST.getlist("name", "surname")
+
         print(pks)
+        print(p)
+        Crm_client.objects.filter(pk__in=pks).delete()
+        message = 'Запись удалена успешно'
+        mess(request, message)
+
+    def add_client(self, request):
+        name = request.POST.getlist("name")
+        surname = request.POST.getlist("surname")
+
 
 
 def mess(request,message):

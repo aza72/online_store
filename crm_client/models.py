@@ -5,8 +5,8 @@ from django.db import models
 
 
 class Crm_client(models.Model):
-    chek = models.BooleanField(default=False, verbose_name='Выбор')
-    name = models.CharField(blank=True,max_length=255,verbose_name='Имя')
+    chek = models.BooleanField(default=False,  verbose_name='Выбор')
+    name = models.CharField(blank=True, max_length=255,verbose_name='Имя')
     surname = models.CharField(blank=True,max_length=255,verbose_name='Фамилия')
     patronymic = models.CharField(blank=True,max_length=255,verbose_name='Отчество')
     car = models.CharField(blank=True,max_length=255,verbose_name='Автомобиль')

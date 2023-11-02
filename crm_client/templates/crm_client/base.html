@@ -9,6 +9,13 @@
     </head>
     <body>
 
+{% if form.name.errors %}
+    <ul class="errorlist">
+        {% for error in form.name.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
     {% if messages %}
 <ul class="messages">
@@ -20,23 +27,25 @@
 
 
 
-{% render_table table %}
-
-
-    <form action="{% url 'client' %}" method="post">
-{#        {% render_table table %}#}
-        {% csrf_token %}
-        {{ form.as_table }}
-        <button type="submit" >Добавить</button>
-{#        </form>#}
-    </form>
-
 <form action="{% url 'client' %}" method="post">
         {% csrf_token %}
-        {{ crud_f.as_table }}
-        <input type="submit" name="delete" value="Удалить запись" />
+        {% render_table table %}
+
+        {{ form.as_table }}
+                    <button type="submit" >Добавить запись</button>
+            <input type="submit" name="delete" value="Удалить запись" />
 {#    <button type="submit" name="delete" >Удалить</button>#}
+
+
+
 </form>
+{#    <form action="{% url 'client' %}" method="post">#}
+{##}
+{#                    {% csrf_token %}#}
+{#                    {{ form.as_table }}#}
+{#                    <button type="submit" >Добавить</button>#}
+{##}
+{#                </form>#}
 
 {#    <form action="{% url 'client' %}" method="post">#}
 {#        {% csrf_token %}#}

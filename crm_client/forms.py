@@ -16,12 +16,12 @@ from crm_client.models import Crm_client, BrandAuto
 #     # data_create = forms.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
 class AddRecordClient(forms.ModelForm):
-    name = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
-    surname = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
-    patronymic = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Отчество'}))
-    car = forms.ModelChoiceField(empty_label='Авто',label=False, queryset=BrandAuto.objects.all())
-    telephone = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
-    vin = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'VIN-номер'}))
+    name = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
+    surname = forms.CharField(label=False,required=False, widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
+    patronymic = forms.CharField(label=False,required=False, widget=forms.TextInput(attrs={'placeholder': 'Отчество'}))
+    car = forms.ModelChoiceField(empty_label='Авто',label=False, required=False, queryset=BrandAuto.objects.all())
+    telephone = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
+    vin = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'VIN-номер'}))
 
 
     class Meta:
@@ -35,7 +35,4 @@ class AddRecordClient(forms.ModelForm):
         #     'vin': forms.TextInput(attrs={'placeholder': 'VIN-номер'}),
         # }
 
-class crud_form(forms.Form):
-    class Meta:
-        model = Crm_client
-        fields = ['name', 'surname', 'patronymic', 'car', 'telephone', 'vin']
+
