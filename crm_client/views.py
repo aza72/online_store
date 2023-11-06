@@ -30,7 +30,7 @@ class clientListView(SingleTableView):
         if request.method == 'POST':
             form = AddRecordClient(request.POST)
             if form.is_valid():
-
+                self.add_client(request)
                 form.save()
                 message = 'Запись добавлена успешно'
                 mess(request,message)
@@ -45,9 +45,9 @@ class clientListView(SingleTableView):
     def delete_client(self,request):
         pks = request.POST.getlist("chek")
         p = request.POST.getlist("name", "surname")
+        #print(pks)
+        #print(p)
 
-        print(pks)
-        print(p)
         Crm_client.objects.filter(pk__in=pks).delete()
         message = 'Запись удалена успешно'
         mess(request, message)
@@ -56,6 +56,9 @@ class clientListView(SingleTableView):
         name = request.POST.getlist("name")
         surname = request.POST.getlist("surname")
 
+        if name:
+            message = 'Поле name обязательно для заполнения'
+            mess(request,message)
 
 
 def mess(request,message):
