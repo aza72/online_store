@@ -31,15 +31,16 @@ class clientListView(SingleTableView):
             form = AddRecordClient(request.POST)
             if form.is_valid():
                 self.add_client(request)
-                form.save()
+                #form.save()
                 message = 'Запись добавлена успешно'
                 mess(request,message)
 
             else:
-                return HttpResponse("Invalid data")
+                #return HttpResponse("Invalid data")
                 message = 'Ошибка, запись не добавлена!'
-                mess(request,message)
-                return render(request, 'crm_client/base.html', {'form':form})
+                #mess(request,message)
+
+                #return render(request, 'crm_client/base.html', {'form':form})
 
         return HttpResponseRedirect('/client/')
     def delete_client(self,request):

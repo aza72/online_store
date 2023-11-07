@@ -1,7 +1,10 @@
 from django.db import models
 
-# Create your models here.
+
 from django.db import models
+
+
+
 
 
 class Crm_client(models.Model):
@@ -9,8 +12,9 @@ class Crm_client(models.Model):
     name = models.CharField(blank=True, max_length=255,verbose_name='Имя')
     surname = models.CharField(blank=True,max_length=255,verbose_name='Фамилия')
     patronymic = models.CharField(blank=True,max_length=255,verbose_name='Отчество')
-    car = models.CharField(blank=True,max_length=255,verbose_name='Автомобиль')
-    telephone = models.CharField(max_length=255,verbose_name='Телефон')
+    car = models.ForeignKey('BrandAuto', on_delete=models.PROTECT, blank=True)
+    #car = models.ForeignKey(blank=True, max_length=255, verbose_name='Автомобиль')
+    telephone = models.CharField(blank=True, max_length=255,verbose_name='Телефон')
     vin = models.CharField(blank=True,max_length=255,verbose_name='VIN-номер')
     ord = models.CharField(blank=True,max_length=255,verbose_name='Заказы')
     bonuses = models.CharField(blank=True,max_length=255,verbose_name='Бонусы')
