@@ -17,6 +17,8 @@
     </ul>
 {% endif %}
 
+
+
     {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -34,25 +36,14 @@
         {{ form.as_table }}
                     <button type="submit" >Добавить запись</button>
             <input type="submit" name="delete" value="Удалить запись" />
+
+
 {#    <button type="submit" name="delete" >Удалить</button>#}
 
 
 
 </form>
-{#    <form action="{% url 'client' %}" method="post">#}
-{##}
-{#                    {% csrf_token %}#}
-{#                    {{ form.as_table }}#}
-{#                    <button type="submit" >Добавить</button>#}
-{##}
-{#                </form>#}
 
-{#    <form action="{% url 'client' %}" method="post">#}
-{#        {% csrf_token %}#}
-{#<button onclick="save_client()">Click me</button> #}
-{#        <button type="submit" name="delete" value="Удалить запись" />#}
-{##}
-{#    </form>#}
 
     </body>
 </html>
