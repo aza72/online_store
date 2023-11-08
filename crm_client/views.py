@@ -38,11 +38,9 @@ class clientListView(SingleTableView):
                 return HttpResponseRedirect('/client/')
 
             else:
-                message = form.errors.as_data()
-                r=message.keys()
-                mylist= list(message.values())
+                message = form.errors
+                mylist = list(message.values())
                 message = mylist[0][0]
-                print(type(message))
                 mess(request,message)
                 #form = AddRecordClient(request.POST)
 
