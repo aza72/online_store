@@ -1,23 +1,26 @@
 {# tutorial/templates/tutorial/people.html #}
+{% load static %}
 {% load render_table from django_tables2 %}
 <!doctype html>
 <html>
     <head>
         <title></title>
-
+        <link type="text/css" href="{% static 'crm_client/css/styles.css' %}" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     </head>
     <body>
+{#{{ form.some_field }}#}
+{#{{ form.non_field_errors }}#}
+{#{% if form.errors %}#}
+{#    <ul class="errorlist">#}
+{#        {% for error in form.errors %}#}
+{#            <li>{{ error }}</li>#}
+{##}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#{% endif %}#}
 
-{% if form.name.errors %}
-    <ul class="errorlist">
-        {% for error in form.name.errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-
+{{ form.car.errors }}
 
     {% if messages %}
 <ul class="messages">
@@ -28,12 +31,13 @@
 {% endif %}
 
 
-
 <form action="{% url 'client' %}" method="post">
         {% csrf_token %}
         {% render_table table %}
 
+
         {{ form.as_table }}
+
                     <button type="submit" >Добавить запись</button>
             <input type="submit" name="delete" value="Удалить запись" />
 

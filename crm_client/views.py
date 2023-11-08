@@ -35,17 +35,21 @@ class clientListView(SingleTableView):
                 form.save()
                 message = 'Запись добавлена успешно'
                 mess(request,message)
+                return HttpResponseRedirect('/client/')
 
             else:
-                print('erorrrr')
-                #return HttpResponse("Invalid data")
-                message = 'Ошибка, запись не добавлена!'
-                #mess(request,message)
-                form = AddRecordClient()
-                render_table = clientListView()
-                #return render(request, 'crm_client/base.html', {'form':form, 'render_table':render_table})
+                message = form.errors.as_data()
+                r=message.keys()
+                mylist= list(message.values())
+                message = mylist[0][0]
+                print(type(message))
+                mess(request,message)
+                #form = AddRecordClient(request.POST)
 
-        return HttpResponseRedirect('/client/')
+                table = Crm_client_Table(Crm_client.objects.all())
+                return render(request, 'crm_client/base.html', {'form':form, 'table':table})
+
+        #return HttpResponseRedirect('/client/')
     def delete_client(self,request):
         pks = request.POST.getlist("chek")
         p = request.POST.getlist("name", "surname")
@@ -60,7 +64,7 @@ class clientListView(SingleTableView):
         name = request.POST.getlist("name")
         surname = request.POST.getlist("surname")
 
-        if name:
+        if not name:
             message = 'Поле name обязательно для заполнения'
             mess(request,message)
 

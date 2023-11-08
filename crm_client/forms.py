@@ -31,7 +31,7 @@ class AddRecordClient(forms.ModelForm):
     # name = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
     # surname = forms.CharField(label=False,required=False, widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
     # patronymic = forms.CharField(label=False,required=False, widget=forms.TextInput(attrs={'placeholder': 'Отчество'}))
-    # car = forms.ModelChoiceField(empty_label='Авто',label=False, required=False, queryset=BrandAuto.objects.all())
+     #car = forms.ModelChoiceField(empty_label='Авто',label=False, required=False, queryset=BrandAuto.objects.all())
     # telephone = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
     # vin = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'VIN-номер'}))
 
@@ -55,5 +55,5 @@ class AddRecordClient(forms.ModelForm):
             message='Значение не может быть Пустым'
             #mess(self.request, message)
             print(car)
-            raise forms.ValidationError({"some_field": "raise an error"})
+            raise forms.ValidationError('Поле "Авто" не должно быть пустым')
         return car
