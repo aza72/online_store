@@ -27,56 +27,59 @@ class clientListView(SingleTableView):
            self.delete_client(request)
            return HttpResponseRedirect('/client/')
 
+        if 'update' in request.POST:
+            form = AddRecordClient(request.POST)
+            print(form.is_valid())
+            if form.is_valid():
+                self.update_client(request)
+            return HttpResponseRedirect('/client/')
+
         if request.method == 'POST':
             form = AddRecordClient(request.POST)
             if form.is_valid():
-
-                self.add_client(request)
                 form.save()
                 message = 'Запись добавлена успешно'
                 mess(request,message)
                 return HttpResponseRedirect('/client/')
 
             else:
-                message = form.errors
-                mylist = list(message.values())
-                message = mylist[0][0]
-                mess(request,message)
-                #form = AddRecordClient(request.POST)
-
+                cut = dict(form.errors)
+                for mes in cut:
+                    #print(cut[mes][0])
+                    message = cut[mes][0]
+                    mess(request,message)
                 table = Crm_client_Table(Crm_client.objects.all())
                 return render(request, 'crm_client/base.html', {'form':form, 'table':table})
 
         #return HttpResponseRedirect('/client/')
     def delete_client(self,request):
         pks = request.POST.getlist("chek")
-        p = request.POST.getlist("name", "surname")
-        #print(pks)
-        #print(p)
-
         Crm_client.objects.filter(pk__in=pks).delete()
         message = 'Запись удалена успешно'
         mess(request, message)
 
-    def add_client(self, request):
-        name = request.POST.getlist("name")
+    def update_client(self,request):
+        pks = request.POST.getlist("chek")
+        p = Crm_client.objects.get(pk__in=pks)
+        print('name')
+        name = request.POST.get('name')
         surname = request.POST.getlist("surname")
+        patronymic = request.POST.getlist("patronymic")
+        car = request.POST.getlist("car")
+        telephone = request.POST.getlist("telephone")
+        vin = request.POST.getlist("vin")
 
-        if not name:
-            message = 'Поле name обязательно для заполнения'
-            mess(request,message)
+        if name:
+            p.name = name
+        p.save()
+        print(name)
 
 
 def mess(request,message):
     messages.success(request, message)
 
-def save_client():
-    print('delete')
 
-# class CreateCRMClientView(FormView):
-#     template_name = 'crm_client/base.html'
-#     form_class = AddRecordClient
-#     success_url = reverse_lazy('/')
+
 
 
 
