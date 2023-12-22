@@ -31,6 +31,7 @@ class clientListView(SingleTableView):
             form = AddRecordClient(request.POST)
             print(form.is_valid())
             if form.is_valid():
+
                 self.update_client(request)
             return HttpResponseRedirect('/client/')
 

@@ -49,6 +49,8 @@ class AddRecordClient(forms.ModelForm):
         # }
 
     def clean(self):
+
+        #rint(z)
         name = self.cleaned_data['name']
         surname = self.cleaned_data['surname']
         patronymic = self.cleaned_data['patronymic']
