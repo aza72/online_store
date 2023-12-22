@@ -7,7 +7,10 @@
         <title></title>
         <link type="text/css" href="{% static 'crm_client/css/styles.css' %}" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     </head>
+
     <body>
 {#{{ form.some_field }}#}
 {#{{ form.non_field_errors }}#}
@@ -31,20 +34,69 @@
 {% endif %}
 
 
-<form action="{% url 'client' %}" method="post">
+<form action="{% url 'client' %}" method="post" name="data">
         {% csrf_token %}
         {% render_table table %}
 
-<div class="form-add">
+<div class="form-add" >
+
         {{ form.as_table }}
 
                     <button type="submit" >Добавить запись</button>
             <input type="submit" name="delete" value="Удалить запись" />
     <input type="submit" name="update" value="Редактировать запись" />
 </div>
+
 {#    <button type="submit" name="delete" >Удалить</button>#}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="myModalLabel">Привет, мир!</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">
+<p>Это модальное окно</p>
+
+    {{ form.as_table }}
+
+{#    <div id="my-div" data-my-variable="{{ form.name }}"></div>#}
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+<button type="button" class="btn btn-primary">Сохранить</button>
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+Открыть модальное окно
+</button>
+<a id="link" href="#" onclick="showMessage()">Нажми меня</a>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+     <script>
+function showMessage() {
+    let frm = document.forms.data;
+    let user = frm.elements.name
+    alert(user.value);
+}
+        frm.id_car.onchange = function() {
+                    let br = $("#id_car_form-add").val();
+                   alert(br);
+
+}
+        {#let mes = {{ form.car }};#}
+        {#$("#myModal").modal('show');#}
+        {#alert('mes');#}
 
 
+    </script>
 
     </body>
 </html>

@@ -17,7 +17,8 @@ class clientListView(SingleTableView):
     model = Crm_client
     table_class = Crm_client_Table
     template_name = 'crm_client/base.html'
-    extra_context = {'form': form}
+    choice = BrandAuto.objects.all()
+    extra_context = {'form': form, 'choice': choice}
 
     # def delete_client(self,request):
     #     print('delete')
@@ -28,11 +29,20 @@ class clientListView(SingleTableView):
            return HttpResponseRedirect('/client/')
 
         if 'update' in request.POST:
-            form = AddRecordClient(request.POST)
+
+            form = UpdateClient(request.POST)
             print(form.is_valid())
             if form.is_valid():
+                c = self.update_client(request)
+                if c:
+                    message = 'Записи отредактированы успешно'
+                    mess(request, message)
+            else:
+                cut = dict(form.errors)
+                for mes in cut:
+                    message = cut[mes][0]
+                    mess(request, message)
 
-                self.update_client(request)
             return HttpResponseRedirect('/client/')
 
         if request.method == 'POST':
@@ -52,28 +62,49 @@ class clientListView(SingleTableView):
                 table = Crm_client_Table(Crm_client.objects.all())
                 return render(request, 'crm_client/base.html', {'form':form, 'table':table})
 
-        #return HttpResponseRedirect('/client/')
+
     def delete_client(self,request):
         pks = request.POST.getlist("chek")
-        Crm_client.objects.filter(pk__in=pks).delete()
-        message = 'Запись удалена успешно'
-        mess(request, message)
+        if not pks:
+            message = 'Вы не выбрали запись для удаления'
+            mess(request, message)
+        if pks:
+            Crm_client.objects.filter(pk__in=pks).delete()
+            message = 'Запись удалена успешно'
+            mess(request, message)
 
     def update_client(self,request):
-        pks = request.POST.getlist("chek")
-        p = Crm_client.objects.get(pk__in=pks)
-        print('name')
-        name = request.POST.get('name')
-        surname = request.POST.getlist("surname")
-        patronymic = request.POST.getlist("patronymic")
-        car = request.POST.getlist("car")
-        telephone = request.POST.getlist("telephone")
-        vin = request.POST.getlist("vin")
+        #pks = request.POST.getlist("chek")
+        if not request.POST.getlist("chek"):
+            message = 'Вы не выбрали записи для редактирования'
+            mess(request, message)
 
-        if name:
-            p.name = name
-        p.save()
-        print(name)
+        for pks in request.POST.getlist("chek"):
+
+            p = Crm_client.objects.get(id=pks)
+            name = request.POST.get('name')
+            surname = request.POST.get('surname')
+            patronymic = request.POST.get("patronymic")
+            car = request.POST.get("car")
+            telephone = request.POST.get("telephone")
+            vin = request.POST.get("vin")
+            #print(car)
+            if name:
+                p.name = name
+            if surname:
+                p.surname = surname
+            if patronymic:
+                p.patronymic = patronymic
+            if car:
+                p.car = BrandAuto.objects.get(pk=car)
+            if telephone:
+                p.telephone = telephone
+            if vin:
+                p.vin = vin
+            p.save()
+            print(pks)
+        if request.POST.getlist("chek"):
+            return True
 
 
 def mess(request,message):
