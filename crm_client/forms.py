@@ -87,6 +87,8 @@ class UpdateClient(forms.ModelForm):
         self.fields['telephone'] = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
         self.fields['vin'] =forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'VIN-номер'}))
 
+
+
     class Meta:
         model = Crm_client
         fields = [ 'name', 'surname', 'patronymic', 'car', 'telephone', 'vin']

@@ -17,7 +17,8 @@ class clientListView(SingleTableView):
     model = Crm_client
     table_class = Crm_client_Table
     template_name = 'crm_client/base.html'
-    extra_context = {'form': form}
+    choice = BrandAuto.objects.all()
+    extra_context = {'form': form, 'choice': choice}
 
     # def delete_client(self,request):
     #     print('delete')
