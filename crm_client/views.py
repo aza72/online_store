@@ -13,12 +13,12 @@ from django.views.generic.edit import FormView
 
 class clientListView(SingleTableView):
     form = AddRecordClient()
-
+    form_add = AddRecordClient()
     model = Crm_client
     table_class = Crm_client_Table
     template_name = 'crm_client/base.html'
     choice = BrandAuto.objects.all()
-    extra_context = {'form': form, 'choice': choice}
+    extra_context = {'form': form, 'form_add':form_add, 'choice': choice}
 
     # def delete_client(self,request):
     #     print('delete')

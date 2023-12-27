@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
+
     </head>
 
     <body>
@@ -60,9 +61,9 @@
 <div class="modal-body">
 <p>Это модальное окно</p>
 
-    {{ form.as_table }}
+{#    {{ form_add.as_table }}#}
 
-{#    <div id="my-div" data-my-variable="{{ form.name }}"></div>#}
+{#    <div id="my-div" data-my-variable="{{ form_add.as_table }}"></div>#}
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
@@ -71,10 +72,11 @@
 </div>
 </div>
 </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+<button type="button" class=" btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#myModal">
 Открыть модальное окно
 </button>
 <a id="link" href="#" onclick="showMessage()">Нажми меня</a>
+    <button type="button" class="btn btn-outline-primary btn-lg" onclick="showMessage()">Добавить Клиента</button>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
@@ -83,14 +85,21 @@
      <script>
          let frm = document.forms.data;
         console.dir(frm);
+{#         $("#id_car").change(function() {#}
+{#                    let br = $("#id_car").val();#}
+{#                   alert(br);#}
+{##}
+
 function showMessage() {
-    {#let frm = document.forms.data;#}
-    {#let surname = frm.elements.car;#}
-    let br = $("#id_car").val();
-    alert(br);
+    let frm = document.forms.data;
+    let surname = frm.elements.id_surname;
+    {#let br = $("#id_car").val();#}
+    alert(surname.value);
 }
+
+
         frm.id_car.onchange = function() {
-                    let br = $("#id_name.myfield").val();
+                    let br = $("#id_car").val();
                    alert(br);
 
 }
