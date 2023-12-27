@@ -103,3 +103,5 @@ class UpdateClient(forms.ModelForm):
         vin = self.cleaned_data['vin']
         if not name and not surname and not patronymic and not car and not telephone and not vin:
             raise forms.ValidationError('Вы не ввели ни одного поля для редактирования')
+
+
