@@ -15,7 +15,7 @@ class clientListView(SingleTableView):
     form = AddRecordClient()
     model = Crm_client
     table_class = Crm_client_Table
-    template_name = 'crm_client/base.html'
+    template_name = 'crm_client/crm.html'
     choice = BrandAuto.objects.all()
     extra_context = {'form': form}
 
@@ -59,7 +59,7 @@ class clientListView(SingleTableView):
                     message = cut[mes][0]
                     mess(request,message)
                 table = Crm_client_Table(Crm_client.objects.all())
-                return render(request, 'crm_client/base.html', {'form':form, 'table':table})
+                return render(request, 'crm_client/crm.html', {'form':form, 'table':table})
 
 
     def delete_client(self,request):
@@ -110,7 +110,8 @@ def mess(request,message):
     messages.success(request, message)
 
 
-
+def test_list(request):
+    return render(request, 'crm_client/base.html', )
 
 
 
