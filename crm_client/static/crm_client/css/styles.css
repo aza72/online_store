@@ -8,5 +8,7 @@ ul.errorlist {display:none;}
     /*margin-bottom: 20px;}*/
 
 .my-st{
-    background-color: chartreuse !important;
+    background-color: chartreuse;
+    color: #fff;
+    height: 250px;
 }
