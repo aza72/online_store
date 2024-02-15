@@ -7,3 +7,6 @@ ul.errorlist {display:none;}
     max-width: 100%;}
     /*margin-bottom: 20px;}*/
 
+.my-st{
+    background-color: chartreuse !important;
+}
