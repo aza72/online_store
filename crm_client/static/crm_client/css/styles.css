@@ -7,8 +7,27 @@ ul.errorlist {display:none;}
     max-width: 100%;}
     /*margin-bottom: 20px;}*/
 
-.my-st{
+.navigation{
     background-color: chartreuse;
     color: #fff;
-    height: 250px;
+    height: 500px;
+}
+.header{
+background-color:darkmagenta;
+    height: 100px;
+}
+.content{
+background-color:dimgray;
+min-height: 100%;
+}
+.footer{
+   background-color:chocolate;
+    min-height: 100%;
+}
+.cont{
+    min-height: 100%;
+}
+.rcont{
+   height: 100%;
+    background-color:dimgray;
 }
