@@ -10,24 +10,30 @@ ul.errorlist {display:none;}
 .navigation{
     background-color: chartreuse;
     color: #fff;
-    height: 500px;
+    height: 100vh;
 }
 .header{
 background-color:darkmagenta;
-    height: 100px;
+    height: 20vh;
 }
 .content{
 background-color:dimgray;
-min-height: 100%;
+/*min-height: 100%;*/
+    height: 75vh;
 }
 .footer{
    background-color:chocolate;
-    min-height: 100%;
+    /*min-height: 100%;*/
+    height: 10vh;
 }
 .cont{
     min-height: 100%;
 }
 .rcont{
-   height: 100%;
+   height: 50vh;
     background-color:dimgray;
+}
+.message{
+    height: 5vh;
+    background-color:royalblue;
 }
