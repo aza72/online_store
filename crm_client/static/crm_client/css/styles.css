@@ -8,7 +8,7 @@ ul.errorlist {display:none;}
     /*margin-bottom: 20px;}*/
 
 .navigation{
-    background-color: chartreuse;
+    background-color: #213fd9fe;
     color: #fff;
     height: 100vh;
 }
@@ -36,4 +36,23 @@ background-color:dimgray;
 .message{
     height: 5vh;
     background-color:royalblue;
+}
+
+.menu{
+    /*width: 100%;*/
+}
+
+a.item-menu{
+   color:  #f5f6fafe;
+}
+.navigation{
+    color: black;
+}
+a.item-menu:hover{
+    color: black;
+    background-color:royalblue;
+    transform: scale(1.1);
+}
+a.item-menu img{
+    width: 2vw;
 }
