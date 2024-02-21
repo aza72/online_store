@@ -1,0 +1,12 @@
+{% load static %}
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+{% for item in header_menu_items %}
+
+    {% if item == 'Войти' %}
+        <button type="button" class="btn btn-lg btn-outline-success">{{ item }}</button>
+    {% elif item == 'Регистрация' %}
+        <button type="button" class="btn btn-lg btn-outline-primary">{{ item }}</button>
+    {% endif %}
+
+{% endfor %}
+</div>

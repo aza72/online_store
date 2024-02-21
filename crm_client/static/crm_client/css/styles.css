@@ -13,16 +13,16 @@ ul.errorlist {display:none;}
     height: 100vh;
 }
 .header{
-background-color:darkmagenta;
-    height: 20vh;
+background-color:white;
+    height: 10vh;
 }
 .content{
 background-color:dimgray;
 /*min-height: 100%;*/
-    height: 75vh;
+    height: 85vh;
 }
 .footer{
-   background-color:chocolate;
+   background-color:black;
     /*min-height: 100%;*/
     height: 10vh;
 }

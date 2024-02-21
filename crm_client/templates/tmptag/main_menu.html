@@ -11,7 +11,9 @@
                     {% elif item == 'Заказы' %}
                         <a class="nav-link icon-link item-menu "  href="#"><img src="{% static 'crm_client/img/cart-dash.svg' %}" >  {{ item }}</a>
                     {% elif item == 'Статистика' %}
-                        <a class="nav-link icon-link item-menu "  href="#"><img src="{% static 'crm_client/img/cart-dash.svg' %}" >  {{ item }}</a>
+                        <a class="nav-link icon-link item-menu "  href="#"><img src="{% static 'crm_client/img/graph-up.svg' %}" >  {{ item }}</a>
+                    {% elif item == 'Клиентская база' %}
+                        <a class="nav-link icon-link item-menu "  href="#"><img src="{% static 'crm_client/img/people.svg' %}" >  {{ item }}</a>
 
                     {% endif %}
 {#                </div>#}
