@@ -113,5 +113,11 @@ def mess(request,message):
 def test_list(request):
     return render(request, 'crm_client/base.html', )
 
-
+class client_baseListView(SingleTableView):
+    form = AddRecordClient()
+    model = Crm_client
+    table_class = Crm_client_Table
+    template_name = 'crm_client/client_base.html'
+    choice = BrandAuto.objects.all()
+    extra_context = {'form': form}
 

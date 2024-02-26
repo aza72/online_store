@@ -5,33 +5,31 @@ ul.errorlist {display:none;}
 .myfield{
     width: 12%;
     max-width: 100%;}
-    /*margin-bottom: 20px;}*/
 
 .navigation{
     background-color: #213fd9fe;
     color: #fff;
-    height: 100vh;
+
 }
 .header{
 background-color:white;
     height: 10vh;
 }
 .content{
-background-color:dimgray;
-/*min-height: 100%;*/
-    height: 85vh;
+height: 100%;
+
 }
 .footer{
    background-color:black;
-    /*min-height: 100%;*/
     height: 10vh;
 }
 .cont{
-    min-height: 100%;
+
+    margin-left: 10px;
 }
-.rcont{
-   height: 50vh;
-    background-color:dimgray;
+.row-content{
+    /*background-color:dimgray;*/
+    height: 85vh;
 }
 .message{
     height: 5vh;
@@ -39,7 +37,8 @@ background-color:dimgray;
 }
 
 .menu{
-    /*width: 100%;*/
+    margin-bottom: 10px;
+    height: 100%;
 }
 
 a.item-menu{
@@ -55,4 +54,11 @@ a.item-menu:hover{
 }
 a.item-menu img{
     width: 2vw;
+}
+.logo{
+    margin-bottom: 6vh;
+}
+.table{
+    /*border: medium solid black;*/
+    /*padding: 5px;*/
 }

@@ -14,9 +14,10 @@
   </head>
   <body>
        <div class="container-fluid">
-          <div class="row">   <!--первая строка--!>
+          <div class="row menu">   <!--первая строка--!>
 
             <div class="col-2 navigation ">
+                <div class="logo">Logo</div>
                 {% block menu %}
                     Главное меню
                     {% show_main_menu %}
@@ -26,16 +27,15 @@
             <div class="col cont " >
 
                 <div class="row  " >
-                          <div class="col-md-auto header" >
-                          Шапка
+                          <div class="col header" >
+                              Шапка
                           </div>
+                          <div class="col-auto justify-content-end align-self-center head" >
                               {% block header %}
-
-
                                  {% show_header_menu %}
                               {% endblock header %}
-
-                       </div>
+                          </div>
+                </div>
                                 <div class="row rmes " >   <!--вторая строка--!>
                                   <div class="col  message" >
                                       {% block message %}
@@ -44,10 +44,10 @@
                                   </div>
                                </div>
 
-                                <div class="row rcont " >   <!--третья строка--!>
-                                  <div class="col  content" >
+                                <div class="row  row-content " >   <!--третья строка--!>
+                                  <div class="col   content" >
                                       {% block content %}
-                                    Контент
+                                            Контент
                                       {% endblock content %}
                                   </div>
                                </div>

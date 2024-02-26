@@ -1,0 +1,17 @@
+{% extends 'crm_client/base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+    <div class="container-fluid">
+    <div class="row   table" >
+        {% render_table table %}
+    </div>
+
+    <div class="btn-group-lg" role="group" aria-label="client_base">
+        <button type="button" class="btn btn-success ">Добавить</button>
+        <button type="button" class="btn btn-warning">Редактировать</button>
+        <button type="button" class="btn btn-danger">Удалить</button>
+
+    </div>
+    </div>
+{% endblock  %}
