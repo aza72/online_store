@@ -24,8 +24,9 @@ class Crm_client_Table(tables.Table):
     data_create = tables.Column( default='Нет информации',verbose_name='Время создания')
 
     class Meta:
+        attrs = {"class": "table  table-bordered border-dark  table-secondary table-striped table-hover ", "tr": "table-danger"}
         model = Crm_client
-        template_name = 'django_tables2/bootstrap.html'
+        template_name = 'django_tables2/bootstrap5.html'
         sequence = ("id", "chek", "name", "surname", "patronymic", "car",
                     "telephone", "vin", "ord", "bonuses", "data_create")
 
