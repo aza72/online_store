@@ -16,7 +16,7 @@
        <div class="container-fluid">
           <div class="row menu">   <!--первая строка--!>
 
-            <div class="col-2 navigation ">
+            <div class="col-2 fixed-top navigation ">
                 <div class="logo">Logo</div>
                 {% block menu %}
                     Главное меню
@@ -24,10 +24,10 @@
                 {% endblock menu %}
             </div>
 
-            <div class="col cont " >
+            <div class="col-10 offset-2 cont " >
 
-                <div class="row  " >
-                          <div class="col header" >
+                <div class="row align-items-start " >
+                          <div class="col  header" >
                               Шапка
                           </div>
                           <div class="col-auto justify-content-end align-self-center head" >
@@ -60,9 +60,11 @@
 
                <div class="row ">   <!--4 строка--!>
                   <div class="col footer" >
+
                       {% block footer %}
                     Футер
                       {% endblock footer %}
+
                   </div>
               </div>
        </div>
@@ -73,3 +75,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>
+
+<script>
+
+</script>
