@@ -69,3 +69,25 @@ a.item-menu img{
     /*padding: 5px;*/
     /*min-height:100vh;*/
 }
+
+.navigation.hide{
+
+}
+.navigation.hide a span {
+    display: none;
+
+}
+.close{
+    margin-left: 15vh;
+    /*margin-bottom: 5vh;*/
+    /*margin-top: -2vh;*/
+    color: white;
+    width: 5vh;
+}
+.img-close {
+display: block;
+}
+
+.img-open {
+    display: none;
+}

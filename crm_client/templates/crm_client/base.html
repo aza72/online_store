@@ -17,9 +17,16 @@
           <div class="row menu">   <!--первая строка--!>
 
             <div class="col-2 fixed-top navigation ">
+
                 <div class="logo">Logo</div>
+                    <div id="hide" >
+                        <img class="img-open " src="{% static 'crm_client/img/arrow-right-square.svg' %}" >
+
+                        <img class="img-close" src="{% static 'crm_client/img/arrow-left-square.svg' %}" >
+                    </div>
                 {% block menu %}
                     Главное меню
+
                     {% show_main_menu %}
                 {% endblock menu %}
             </div>
@@ -77,5 +84,17 @@
 </html>
 
 <script>
-
+document.querySelector("#in").onclick= function(){
+    let menu = document.querySelector(".navigation");
+    menu.classList.toggle("hide");
+    menu.classList.toggle("col-1");
+    menu.classList.toggle("col-2");
+    let container = document.querySelector(".cont");
+    container.classList.toggle("offset-1");
+    container.classList.toggle("offset-2");
+    container.classList.toggle("col-11");
+let open = document.querySelector("#hide>close");
+{#open.classList.toggle("close");#}
+open.classList.toggle("img-open");
+}
 </script>

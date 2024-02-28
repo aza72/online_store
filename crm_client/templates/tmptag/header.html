@@ -5,7 +5,7 @@
 {% for item in header_menu_items %}
 
     {% if item == 'Войти' %}
-        <button type="button" class="btn btn-sm btn-outline-success">{{ item }}</button>
+        <button type="button" id="in" class="btn btn-sm btn-outline-success">{{ item }}</button>
     {% elif item == 'Регистрация' %}
         <button type="button" class="btn btn-sm btn-outline-primary">{{ item }}</button>
     {% endif %}
