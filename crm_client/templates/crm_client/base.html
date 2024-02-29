@@ -20,9 +20,7 @@
 
                 <div class="logo">Logo</div>
                     <div id="hide" >
-                        <img class="img-open " src="{% static 'crm_client/img/arrow-right-square.svg' %}" >
-
-                        <img class="img-close" src="{% static 'crm_client/img/arrow-left-square.svg' %}" >
+                        <img  src="{% static 'crm_client/img/arrow-left-square.svg' %}" >
                     </div>
                 {% block menu %}
                     Главное меню
@@ -66,7 +64,7 @@
 
 
                <div class="row ">   <!--4 строка--!>
-                  <div class="col footer" >
+                  <div class="col-10 offset-2 footer" >
 
                       {% block footer %}
                     Футер
@@ -84,17 +82,23 @@
 </html>
 
 <script>
-document.querySelector("#in").onclick= function(){
-    let menu = document.querySelector(".navigation");
+document.querySelector("#hide").onclick= function(){
+let menu = document.querySelector(".navigation");
     menu.classList.toggle("hide");
     menu.classList.toggle("col-1");
     menu.classList.toggle("col-2");
-    let container = document.querySelector(".cont");
+let container = document.querySelector(".cont");
     container.classList.toggle("offset-1");
     container.classList.toggle("offset-2");
     container.classList.toggle("col-11");
-let open = document.querySelector("#hide>close");
-{#open.classList.toggle("close");#}
-open.classList.toggle("img-open");
+let footer = document.querySelector(".footer");
+    footer.classList.toggle("offset-1");
+    footer.classList.toggle("offset-2");
+    footer.classList.toggle("col-11");
+let open = document.querySelector("#hide");
+    open.classList.toggle("img-close");
 }
+
+
+
 </script>
