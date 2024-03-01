@@ -26,6 +26,7 @@ class Crm_client_Table(tables.Table):
     class Meta:
         attrs = {"class": "table  table-bordered border-dark  table-secondary table-striped table-hover  ", }
         model = Crm_client
+        exclude = ("id",)
         template_name = 'django_tables2/bootstrap5.html'
         sequence = ("id", "chek", "name", "surname", "patronymic", "car",
                     "telephone", "vin", "ord", "bonuses", "data_create")
