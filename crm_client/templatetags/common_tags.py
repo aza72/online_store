@@ -1,4 +1,7 @@
 from django import template
+
+from crm_client.forms import AddRecordClient
+
 register = template.Library()
 
 
@@ -11,3 +14,8 @@ def show_main_menu():
 def show_header_menu():
     header_menu_items = ['Войти','Регистрация',]
     return {"header_menu_items": header_menu_items,}
+
+@register.inclusion_tag('tmptag/modal_window_add.html')
+def modal_window_add():
+    form = AddRecordClient()
+    return {'form':form,}
