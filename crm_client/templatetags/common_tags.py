@@ -1,6 +1,6 @@
 from django import template
 
-from crm_client.forms import AddRecordClient
+from crm_client.forms import AddRecordClient, AutoClient
 
 register = template.Library()
 
@@ -18,4 +18,7 @@ def show_header_menu():
 @register.inclusion_tag('tmptag/modal_window_add.html')
 def modal_window_add():
     form = AddRecordClient()
-    return {'form':form,}
+    form_auto = AutoClient()
+    return {'form':form, 'form_auto':form_auto}
+
+

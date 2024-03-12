@@ -13,6 +13,7 @@ class Crm_client(models.Model):
     surname = models.CharField(blank=True,max_length=255,verbose_name='Фамилия')
     patronymic = models.CharField(blank=True,max_length=255,verbose_name='Отчество')
     car = models.ForeignKey('BrandAuto', on_delete=models.PROTECT, blank=True)
+    model_car = models.ForeignKey('ModelAuto', on_delete=models.PROTECT, null=True, blank = True)
     #car = models.ForeignKey(blank=True, max_length=255, verbose_name='Автомобиль')
     telephone = models.CharField(blank=True, max_length=255,verbose_name='Телефон')
     vin = models.CharField(blank=True,max_length=255,verbose_name='VIN-номер')
@@ -26,6 +27,13 @@ class BrandAuto(models.Model):
 
     def __str__(self):
         return self.auto_brand
+
+class ModelAuto(models.Model):
+    model_brand = models.CharField(blank=True, max_length=255, verbose_name='Модель авто')
+    brand = models.ForeignKey('BrandAuto', on_delete=models.PROTECT, null=True, blank=True)
+
+    def __str__(self):
+        return self.model_brand
 
 
 #
