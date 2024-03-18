@@ -23,6 +23,7 @@ class clientListView(SingleTableView):
     #     print('delete')
 
     def post(self,request):
+        print("123")
         if 'delete' in request.POST:
            self.delete_client(request)
            return HttpResponseRedirect('/client/')
