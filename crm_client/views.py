@@ -23,7 +23,7 @@ class clientListView(SingleTableView):
     #     print('delete')
 
     def post(self,request):
-        print("123")
+        print("321")
         if 'delete' in request.POST:
            self.delete_client(request)
            return HttpResponseRedirect('/client/')
@@ -122,3 +122,8 @@ class client_baseListView(SingleTableView):
     choice = BrandAuto.objects.all()
     extra_context = {'form': form}
 
+    def post(self,request):
+        pks = request.POST.getlist("chek")
+        print(pks)
+# def validate_username(request):
+#     print("123")

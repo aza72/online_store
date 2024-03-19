@@ -8,6 +8,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
       <div class="modal-body">
+          {% csrf_token %}
         {{ form.as_p }}
       </div>
       <div class="modal-footer">
@@ -38,16 +39,18 @@
   </div>
 </div>
 
-<script>
-    let btn = document.querySelector("#btnn");
+ <script>
+    {#let btn = document.querySelector("#btnn");#}
     {#btn.onclick = function (){#}
-    $('#btnn').on('click', function() {
+$('#btnn').on('click', function() {
         $.ajax({
 
             type: "post",
             url: "{% url 'client-base' %}",
-
-
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            {#headers: {#}
+            {#   'X-CSRFToken': csrfToken#}
+            {# }#}
         });
     });
 
