@@ -123,7 +123,12 @@ class client_baseListView(SingleTableView):
     extra_context = {'form': form}
 
     def post(self,request):
-        pks = request.POST.getlist("chek")
-        print(pks)
+        # pks = request.POST.getlist("form")
+        form = AddRecordClient(request.POST)
+        print(form)
+        # if form.is_valid():
+        #     form.save()
+        return HttpResponse('Success!')
+
 # def validate_username(request):
 #     print("123")
