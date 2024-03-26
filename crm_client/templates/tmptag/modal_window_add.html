@@ -8,15 +8,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
       <div class="modal-body">
-          <form id="myNameForm">
+          <form id="myNameForm" method="post">
           {% csrf_token %}
             {{ form.as_p }}
-          </form>
+               <button type="submit">Submit</button>
+
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Добавить автомобиль</button>
-          <button type="button" class="btn btn-primary" id="btnn">Сохранить</button>
+          <button type="submit" class="btn btn-primary" id="btnn">Сохранить</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </form>
       </div>
     </div>
   </div>
@@ -44,16 +46,26 @@
  <script>
     {#let btn = document.querySelector("#btnn");#}
     {#btn.onclick = function (){#}
-$('#btnn').on('click', function() {
-        $.ajax({
+{#$('#btnn').on('click', function() {#}
+{#        $.ajax({#}
+{##}
+{#            type: "post",#}
+{#            url: "{% url 'client-base' %}",#}
+{#            data: {csrfmiddlewaretoken: '{{ csrf_token }}', form:  $('#myNameForm').serialize()},#}
+{##}
+{#        });#}
+{#    });#}
 
-            type: "post",
-            url: "{% url 'client-base' %}",
-            data: {csrfmiddlewaretoken: '{{ csrf_token }}', form: $('form#myNameForm').serialize()},
-            {#headers: {#}
-            {#   'X-CSRFToken': csrfToken#}
-            {# }#}
-        });
-    });
-
+$('#myNameForm').on('submit', function(event) {
+      event.preventDefault();
+      $.ajax({
+        url: '{% url 'client-base' %}',
+        type: 'POST',
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response){
+                $("#bbq").html(response);
+            }
+      });
+});
 </script>
