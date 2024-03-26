@@ -63,8 +63,8 @@ $('#myNameForm').on('submit', function(event) {
         type: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
-        success: function(response){
-                $("#bbq").html(response);
+        success: function(table){
+                $("#table").html(table);
             }
       });
 });

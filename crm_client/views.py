@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView
@@ -127,13 +127,16 @@ class client_baseListView(SingleTableView):
         form = AddRecordClient(request.POST)
 
 
-        print(form)
+        print()
         if form.is_valid():
             form.save()
         else:
             print(form.errors.values())
 
-        return HttpResponse('Success!')
+        table = Crm_client_Table(Crm_client.objects.all())
+
+        #return JsonResponse(request,{'table': table})
+        return render(request, 'crm_client/client_base.html',{'table': table})
 
 # def validate_username(request):
 #     print("123")
