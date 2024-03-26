@@ -124,7 +124,7 @@ class client_baseListView(SingleTableView):
 
     def post(self,request):
         # pks = request.POST.getlist("form")
-        form = AddRecordClient(request.POST)
+        #form = AddRecordClient(request.POST)
         print(form)
         # if form.is_valid():
         #     form.save()
