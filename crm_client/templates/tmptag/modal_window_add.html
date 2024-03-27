@@ -62,9 +62,12 @@ $('#myNameForm').on('submit', function(event) {
         url: '{% url 'client-base' %}',
         type: 'POST',
         data: $(this).serialize(),
-        dataType: 'json',
+        {#dataType: 'json',#}
         success: function(table){
-                $("#table").html(table);
+                console.log(table);
+                let z = $(table).find('#table');
+                $("#table").html(z);
+
             }
       });
 });

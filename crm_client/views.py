@@ -129,13 +129,14 @@ class client_baseListView(SingleTableView):
 
         print()
         if form.is_valid():
-            form.save()
+            print('125')
+            # form.save()
         else:
             print(form.errors.values())
 
         table = Crm_client_Table(Crm_client.objects.all())
 
-        #return JsonResponse(request,{'table': table})
+        #return HttpResponse({'table': table})
         return render(request, 'crm_client/client_base.html',{'table': table})
 
 # def validate_username(request):
