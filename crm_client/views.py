@@ -130,7 +130,7 @@ class client_baseListView(SingleTableView):
         print()
         if form.is_valid():
             print('125')
-            # form.save()
+            form.save()
         else:
             print(form.errors.values())
 

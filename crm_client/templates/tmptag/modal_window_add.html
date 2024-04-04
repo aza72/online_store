@@ -65,8 +65,10 @@ $('#myNameForm').on('submit', function(event) {
         {#dataType: 'json',#}
         success: function(table){
                 console.log(table);
-                let z = $(table).find('#table');
-                $("#table").html(z);
+                let z = $(table).find('.table');
+                $(".table").html(z);
+
+
 
             }
       });
