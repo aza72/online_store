@@ -8,7 +8,7 @@ from crm_client.forms import *
 from crm_client.models import Crm_client
 from crm_client.tables import Crm_client_Table
 # Create your views here.
-from django_tables2 import SingleTableView
+from django_tables2 import SingleTableView, LazyPaginator
 from django.views.generic.edit import FormView
 
 class clientListView(SingleTableView):
@@ -117,6 +117,7 @@ def test_list(request):
 class client_baseListView(SingleTableView):
     form = AddRecordClient()
     model = Crm_client
+    paginate_by = 5
     table_class = Crm_client_Table
     template_name = 'crm_client/client_base.html'
     choice = BrandAuto.objects.all()
@@ -130,12 +131,12 @@ class client_baseListView(SingleTableView):
         print()
         if form.is_valid():
             print('125')
-            form.save()
+            #form.save()
         else:
             print(form.errors.values())
 
         table = Crm_client_Table(Crm_client.objects.all())
-
+        table.paginate(page=request.POST.get("page", 1),per_page=5)
         #return HttpResponse({'table': table})
         return render(request, 'crm_client/client_base.html',{'table': table})
 
