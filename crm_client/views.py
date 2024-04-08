@@ -8,7 +8,7 @@ from crm_client.forms import *
 from crm_client.models import Crm_client
 from crm_client.tables import Crm_client_Table
 # Create your views here.
-from django_tables2 import SingleTableView, LazyPaginator
+from django_tables2 import SingleTableView, LazyPaginator, SingleTableMixin, RequestConfig
 from django.views.generic.edit import FormView
 
 class clientListView(SingleTableView):
@@ -114,10 +114,11 @@ def mess(request,message):
 def test_list(request):
     return render(request, 'crm_client/base.html', )
 
-class client_baseListView(SingleTableView):
+class client_baseListView( SingleTableView):
     form = AddRecordClient()
     model = Crm_client
-    paginate_by = 5
+    #paginate_by = 5
+    table_pagination = {'per_page': 5, 'page': 1}
     table_class = Crm_client_Table
     template_name = 'crm_client/client_base.html'
     choice = BrandAuto.objects.all()
@@ -126,7 +127,8 @@ class client_baseListView(SingleTableView):
     def post(self,request):
         #pks = request.POST
         form = AddRecordClient(request.POST)
-
+        message = request.POST
+        print(message)
 
         print()
         if form.is_valid():
@@ -138,6 +140,7 @@ class client_baseListView(SingleTableView):
         table = Crm_client_Table(Crm_client.objects.all())
         table.paginate(page=request.POST.get("page", 1),per_page=5)
         #return HttpResponse({'table': table})
+        #RequestConfig(request, paginate={"per_page": 5}).configure(table)
         return render(request, 'crm_client/client_base.html',{'table': table})
 
 # def validate_username(request):

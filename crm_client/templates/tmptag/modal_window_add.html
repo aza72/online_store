@@ -44,27 +44,23 @@
 </div>
 
  <script>
-    {#let btn = document.querySelector("#btnn");#}
-    {#btn.onclick = function (){#}
-{#$('#btnn').on('click', function() {#}
-{#        $.ajax({#}
-{##}
-{#            type: "post",#}
-{#            url: "{% url 'client-base' %}",#}
-{#            data: {csrfmiddlewaretoken: '{{ csrf_token }}', form:  $('#myNameForm').serialize()},#}
-{##}
-{#        });#}
-{#    });#}
 
 $('#myNameForm').on('submit', function(event) {
       event.preventDefault();
+    let url_string = window.location.href;
+    let url = new URL(url_string);
+    let page = url.searchParams.get("page");
+    let param = {
+        $(this).serialize(),
+        page: page,
+    }
       $.ajax({
         url: '{% url 'client-base' %}',
         type: 'POST',
-        data: $(this).serialize(),
+        data: param,
         {#dataType: 'json',#}
         success: function(table){
-                console.log(table);
+                {#console.log(table);#}
                 let z = $(table).find('.table-responsive');
                 $(".table-responsive").html(z);
 
