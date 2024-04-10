@@ -124,6 +124,7 @@ class client_baseListView( SingleTableView):
     choice = BrandAuto.objects.all()
     extra_context = {'form': form}
 
+
     def post(self,request):
         #pks = request.POST
         form = AddRecordClient(request.POST)
