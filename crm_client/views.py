@@ -123,8 +123,7 @@ class client_baseListView( SingleTableView):
     template_name = 'crm_client/client_base.html'
     choice = BrandAuto.objects.all()
     extra_context = {'form': form}
-
-
+#123123
     def post(self,request):
         #pks = request.POST
         form = AddRecordClient(request.POST)
