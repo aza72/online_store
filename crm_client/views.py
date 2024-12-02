@@ -1,23 +1,31 @@
+import json
+
 from django.contrib import messages
+from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 
 from crm_client.forms import *
-from crm_client.models import Crm_client
+from crm_client.forms import AddRecordClient
+from crm_client.models import Crm_client, BrandAuto
 from crm_client.tables import Crm_client_Table
 # Create your views here.
 from django_tables2 import SingleTableView, LazyPaginator, SingleTableMixin, RequestConfig
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, DeleteView
+
+from crm_client.templatetags.common_tags import modal_window_add
+from crm_client.utils import get_records, check_brand
+
 
 class clientListView(SingleTableView):
-    form = AddRecordClient()
+    # form = AddRecordClient()
     model = Crm_client
     table_class = Crm_client_Table
     template_name = 'crm_client/crm.html'
     choice = BrandAuto.objects.all()
-    extra_context = {'form': form}
+    # extra_context = {'form': form}
 
     # def delete_client(self,request):
     #     print('delete')
@@ -145,3 +153,111 @@ class client_baseListView( SingleTableView):
 
 # def validate_username(request):
 #     print("123")
+
+
+class DeleteClientView(DeleteView):  # Создание нового класса
+    pk_url_kwarg = 'pk'
+    model = Crm_client
+    # context_object_name = 'pk'
+    # template_name = 'crm_client/client_base.html'
+    success_url = reverse_lazy('/client-base')
+
+    # def __init__(self, *args, **kwargs):
+    #     print("constructor")
+    #     print(type(kwargs.items()))
+    #     self.kwargs =kwargs
+
+    def get_object(self, queryset=None):
+        print("123")
+        print(self.kwargs)
+        print("321")
+        return Crm_client.objects.filter(pk=4)
+
+
+def custom_middleware(request,**kwargs):
+    data = request.POST.get("pk")
+    print(request)
+    obj = Crm_client.objects.filter(pk=data)
+
+    pk_url_kwarg = {
+
+        'pk': 3,
+        "method":'POST'
+    }
+    answer = DeleteClientView.as_view()(request)
+    # answer.delete(request,**pk_url_kwarg )
+    # answer.get_object=data
+    print(answer)
+    return answer
+
+
+
+
+
+class BaseClientView(ListView):
+    model = Crm_client
+    template_name = 'crm_client/client_base.html'
+    message = None    #Сообщения в таблицу
+    form = AddRecordClient()
+    formset = ModelAutoForm()
+    # errors = None   #Ошибки валидации формы добавления
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form
+        context['formset'] = self.formset
+        if self.message is not None:
+            context['message'] = self.message
+        # if self.errors is not None:
+        #     context['errors'] = self.errors
+        return context
+    def post(self,request,*args,**kwargs): #Прием ajax запроса
+        self.object_list = self.get_queryset()
+        # self.message = self.message
+        if (request.POST.get("method")=="delete"): #если нажата кнопка delete
+            query_delete = get_records(request)
+            query_delete.delete()
+            self.message = 'Записи успешно удалены'
+
+        elif(request.POST.get("method")=="add"): #если нажата кнопка add
+            form = AddRecordClient(request.POST)
+
+            if form.is_valid():
+                form.save()
+                self.form = AddRecordClient()
+                self.message = 'Записи успешно добавлены'
+
+            else:
+                self.form = form
+
+        elif (request.POST.get("method") == "add_auto"):  # если нажата кнопка add_auto
+            BrandFormset = inlineformset_factory(BrandAuto,ModelAuto)
+            # self.formset = BrandFormset()
+
+
+
+
+
+
+            # req = check_brand(request)
+            # request.POST = req
+            # form = AutoClient(request.POST)
+            # print(form)
+            # form['brand'] = req
+
+            # if form.is_valid():
+            #     self.form = AutoClient()
+            #     self.message = 'Автомобиль успешно добавлен'
+            #
+            # else:
+            #     self.form = form
+
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+            
+
+
+
+    # def get_queryset(self):
+    #     object_list = Crm_client.objects.all()
+    #     return object_list

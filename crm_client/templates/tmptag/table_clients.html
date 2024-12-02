@@ -1,0 +1,59 @@
+{% load static %}
+
+<div class="wrp">
+<table class="table table-hover">
+  <thead>
+    <tr class="table-title">
+      <th scope="col">ID</th>
+      <th scope="col">Выбор</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Отчество</th>
+      <th scope="col">Марка авто</th>
+      <th scope="col">Телефон</th>
+      <th scope="col">VIN-номер</th>
+      <th scope="col">Заказы</th>
+      <th scope="col">Бонусы</th>
+    </tr>
+  </thead>
+
+  <tbody >
+  {% for c in client %}
+        <tr class="table-row">
+          <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                <div>
+                  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{ c.pk }}" aria-label="...">
+                </div> {{ c.chek }}
+            </td>
+          <td>{{ c.surname }}</td>
+          <td>{{c.name}}</td>
+          <td>{{c.patronymic}}</td>
+          <td>{{c.car }} {{ c.model_car }}</td>
+          <td>{{c.telephone}}</td>
+          <td>{{c.vin}}</td>
+          <td>{{c.ord}}</td>
+          <td>{{c.bonuses}}</td>
+        </tr>
+  {% endfor %}
+
+
+  </tbody>
+
+</table>
+</div>
+{#<div class="row ">#}
+
+{#    <div class="col-2 mt-2">#}
+{#        <button>Редактировать</button>#}
+{#    </div>#}
+{#    <div class="col-1 mt-2">#}
+{#        <button>Удалить</button>#}
+{#    </div>#}
+{#    <div class="col-1 mt-2">#}
+{#        <button>Изменить</button>#}
+{#    </div>#}
+{#    <div class="col-1 mt-2">#}
+{#        <button>Добавить авто</button>#}
+{#    </div>#}
+{#</div>#}

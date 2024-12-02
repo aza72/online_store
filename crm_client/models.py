@@ -30,7 +30,7 @@ class BrandAuto(models.Model):
 
 class ModelAuto(models.Model):
     model_brand = models.CharField(blank=True, max_length=255, verbose_name='Модель авто')
-    brand = models.ForeignKey('BrandAuto', on_delete=models.PROTECT, null=True, blank=True)
+    auto_brand = models.ForeignKey('BrandAuto', on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.model_brand

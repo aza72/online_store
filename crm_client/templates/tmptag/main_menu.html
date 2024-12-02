@@ -2,20 +2,24 @@
 {#<div class="container-fluid">#}
     <div class="row">
 
-        <nav class="nav flex-column nav-pills ">
+        <nav class="nav text-center flex-column nav-pills ">
             {% for item in menu_items %}
 {#                <div class="col-12 menu ">#}
                     {% if item == 'Клиент' %}
-                        <a class="nav-link icon-link item-menu "  href="#"><img src="{% static 'crm_client/img/person.svg' %}" > <span> {{ item }}</span></a>
+                        <a class="nav-link icon-link item-menu  "  href="#"><img src="{% static 'crm_client/img/person.svg' %}" > <span> {{ item }}</span></a>
+                    <hr/>
                     {% elif item == 'Бонусная система' %}
                         <a class="nav-link icon-link item-menu "  href="#"> <img src="{% static 'crm_client/img/gem.svg' %}" > <span>{{ item }}</span></a>
+                    <hr/>
                     {% elif item == 'Заказы' %}
                         <a class="nav-link icon-link item-menu "  href="#"><img src="{% static 'crm_client/img/cart-dash.svg' %}" > <span> {{ item }}</span></a>
+                    <hr/>
                     {% elif item == 'Статистика' %}
                         <a class="nav-link icon-link item-menu "  href="#"><img src="{% static 'crm_client/img/graph-up.svg' %}" > <span> {{ item }}</span></a>
+                    <hr/>
                     {% elif item == 'Клиентская база' %}
-                        <a class="nav-link icon-link item-menu "  href="{% url 'client-base' %}"><img src="{% static 'crm_client/img/people.svg' %}" ><span> {{ item }}</span></a>
-
+                        <a class="nav-link icon-link item-menu  "  href="{% url 'client-base' %}"><img src="{% static 'crm_client/img/people.svg' %}" ><span > {{ item }}</span></a>
+                    <hr/>
                     {% endif %}
 {#                </div>#}
             {% endfor %}

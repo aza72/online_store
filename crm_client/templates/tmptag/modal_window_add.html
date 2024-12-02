@@ -7,18 +7,19 @@
         <h5 class="modal-title" id="staticBackdropLabel">Добавить нового клиента</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
-      <div class="modal-body">
-          <form id="myNameForm" method="post">
-          {% csrf_token %}
-            {{ form.as_p }}
-               <button type="submit">Submit</button>
+      <div class="modal-body add-client">
 
+          <form id="myNameForm" method="post">
+              {% csrf_token %}
+                {{ form.as_p }}
+
+          </form>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Добавить автомобиль</button>
-          <button type="submit" class="btn btn-primary" id="btnn">Сохранить</button>
+          <button type="button" class="btn btn-primary add-button" >Сохранить</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-      </form>
+
       </div>
     </div>
   </div>
@@ -31,12 +32,16 @@
         <h5 class="modal-title" id="staticBackdropLabel">Добавить автомобиль</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
-      <div class="modal-body">
-        {{ form_auto.as_p }}
+      <div class="modal-body add-auto">
+          <form id="myFormAddAuto" method="post">
+              <div class="message-auto">{{ message }}</div>
+            {% csrf_token %}
+            {{ formset.as_p }}
+          </form>
       </div>
       <div class="modal-footer">
 
-          <button type="button" class="btn btn-primary">Сохранить</button>
+          <button type="button" class="btn btn-primary add-modal-button">Сохранить</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Назад</button>
       </div>
     </div>
@@ -45,40 +50,40 @@
 
  <script>
 
-$('#myNameForm').on('submit', function(event) {
-      event.preventDefault();
-    let url_string = window.location.href;
-    let url = new URL(url_string);
-    let page = url.searchParams.get("page");
-    let param = $(this).serialize();
-    let formData = new FormData(myNameForm);
-    let par = {
-        'csrfmiddlewaretoken':formData.get('csrfmiddlewaretoken'),
-        'name':formData.get('name'),
-        'surname':formData.get('surname'),
-        'patronymic':formData.get('patronymic'),
-        'car':formData.get('car'),
-        'model_car':formData.get('model_car'),
-        'telephone':formData.get('telephone'),
-        'vin':formData.get('vin'),
-        'pag':page,
-    }
-
-
-
-      $.ajax({
-        url: '{% url 'client-base' %}',
-        type: 'POST',
-        data: par,
+{#$('#myNameForm').on('submit', function(event) {#}
+{#      event.preventDefault();#}
+{#    let url_string = window.location.href;#}
+{#    let url = new URL(url_string);#}
+{#    let page = url.searchParams.get("page");#}
+{#    let param = $(this).serialize();#}
+{#    let formData = new FormData(myNameForm);#}
+{#    let par = {#}
+{#        'csrfmiddlewaretoken':formData.get('csrfmiddlewaretoken'),#}
+{#        'name':formData.get('name'),#}
+{#        'surname':formData.get('surname'),#}
+{#        'patronymic':formData.get('patronymic'),#}
+{#        'car':formData.get('car'),#}
+{#        'model_car':formData.get('model_car'),#}
+{#        'telephone':formData.get('telephone'),#}
+{#        'vin':formData.get('vin'),#}
+{#        'pag':page,#}
+{#    }#}
+{##}
+{##}
+{##}
+{#      $.ajax({#}
+{#        url: '{% url 'client-base' %}',#}
+{#        type: 'POST',#}
+{#        data: par,#}
         {#dataType: 'json',#}
-        success: function(table){
+{#        success: function(table){#}
                 {#console.log(table);#}
-                let z = $(table).find('.table-responsive');
-                $(".table-responsive").html(z);
-
-
-
-            }
-      });
-});
+{#                let z = $(table).find('.table-responsive');#}
+{#                $(".table-responsive").html(z);#}
+{##}
+{##}
+{##}
+{#            }#}
+{#      });#}
+{#});#}
 </script>

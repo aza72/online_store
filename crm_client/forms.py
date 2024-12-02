@@ -34,17 +34,17 @@ class AddRecordClient(forms.ModelForm):
         fields = [ 'name', 'surname', 'patronymic', 'car', 'model_car',  'telephone', 'vin']
 
 
-    # def clean(self):
-    #     name = self.cleaned_data['name']
-    #     surname = self.cleaned_data['surname']
-    #     patronymic = self.cleaned_data['patronymic']
-    #     if not name and not surname and not patronymic:
-    #         raise forms.ValidationError('Одно из полей "Имя", "Фамилия", "Отчество" должно быть заполнено')
-    # def clean_car(self):
-    #     car = self.cleaned_data['car']
-    #     if not car:
-    #         raise forms.ValidationError('Поле "Авто" не должно быть пустым')
-    #     return car
+    def clean(self):
+        name = self.cleaned_data['name']
+        surname = self.cleaned_data['surname']
+        patronymic = self.cleaned_data['patronymic']
+        if not name and not surname and not patronymic:
+            raise forms.ValidationError('Одно из полей "Имя", "Фамилия", "Отчество" должно быть заполнено')
+    def clean_car(self):
+        car = self.cleaned_data['car']
+        if not car:
+            raise forms.ValidationError('Поле "Марка авто" не должно быть пустым')
+        return car
     #
     # def clean_telephone(self):
     #     telephone = self.cleaned_data['telephone']
@@ -52,23 +52,40 @@ class AddRecordClient(forms.ModelForm):
     #         raise forms.ValidationError('Поле "Телефон" не должно быть пустым')
     #     return telephone
     #
-    # def clean_vin(self):
-    #     vin = self.cleaned_data['vin']
-    #     if not vin:
-    #         raise forms.ValidationError('Поле "VIN" не должно быть пустым')
-    #     return vin
+    def clean_vin(self):
+        vin = self.cleaned_data['vin']
+        if not vin:
+            raise forms.ValidationError('Поле "VIN" не должно быть пустым')
+        return vin
 
-class AutoClient(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+# class AutoClient(forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#
+#         super().__init__(*args, **kwargs)
+#         self.fields['model_brand'] = forms.CharField(required=False, label=False, widget=forms.TextInput(attrs={'placeholder': 'Модель автомобиля'}))
+#         self.fields['brand'] = forms.CharField(label=False,required=False, widget=forms.TextInput(attrs={'placeholder': 'Марка автомобиля'}))
+#
+#
+#     class Meta:
+#         model = ModelAuto
+#         fields = [ 'brand','model_brand' ]
+#
+#     def clean_brand(self):
+#         brand = self.cleaned_data['brand']
+#         if not brand:
+#             raise forms.ValidationError('Поле "Марка автомобиля" не должно быть пустым')
+#         return brand
 
-        super().__init__(*args, **kwargs)
-        self.fields['model_brand']= forms.CharField(required=False, label=False, widget=forms.TextInput(attrs={'placeholder': 'Модель автомобиля'}))
-        self.fields['brand']=forms.CharField(label=False,required=False, widget=forms.TextInput(attrs={'placeholder': 'Марка автомобиля'}))
 
+class ModelAutoForm(forms.ModelForm):
 
     class Meta:
         model = ModelAuto
-        fields = [ 'model_brand', 'brand']
+        exclude = ('brand',)
 
 
+class BrandAutoForm(forms.ModelForm):
 
+    class Meta:
+        model = BrandAuto
+        fields = '__all__'

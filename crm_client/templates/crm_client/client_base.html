@@ -1,26 +1,42 @@
-{% extends 'crm_client/base.html' %}
+{% extends 'crm_client/base_top.html' %}
 {% load render_table from django_tables2 %}
 {% load static %}
 {% load common_tags %}
 
 {% block content %}
+
+
+
+    {%  show_table_clients %}
+
+    <div class="col  mt-2 btn-table">
+        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Добавить</button>
+        <button class="update-button" disabled>Редактировать</button>
+        <button class="delete-button" disabled>Удалить</button>
+        <button class="select-button">Выделить всё</button>
+        <button class="delete-select-button" disabled>Снять выделение</button>
+{#        <button>Изменить</button>#}
+{#        <button>Добавить авто</button>#}
+    </div>
+
+{#{% block content %}#}
 {#    <div class="container-fluid">#}
 {#    <div class="row-auto   table" >#}
-
-        <div class="table-responsive" id="table">
-                {% render_table table %}
+{##}
+{#        <div class="table-responsive" id="table">#}
 {#                {% render_table table %}#}
 {#                {% render_table table %}#}
-        </div>
-
-
+{#                {% render_table table %}#}
+{#        </div>#}
+{##}
+{##}
 {#    </div>#}
-{% modal_window_add %}
-    <div class="btn-group-lg" role="group" aria-label="client_base">
-        <button type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#staticBackdrop">Добавить</button>
-        <button type="button" class="btn btn-warning">Редактировать</button>
-        <button type="button" class="btn btn-danger">Удалить</button>
-
-    </div>
+{% modal_window_add errors form formset %}
+{#    <div class="btn-group-lg" role="group" aria-label="client_base">#}
+{#        <button type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#staticBackdrop">Добавить</button>#}
+{#        <button type="button" class="btn btn-warning">Редактировать</button>#}
+{#        <button type="button" class="btn btn-danger">Удалить</button>#}
+{##}
+{#    </div>#}
 {#    </div>#}
 {% endblock  %}
