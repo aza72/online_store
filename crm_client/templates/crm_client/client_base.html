@@ -7,7 +7,7 @@
 
 
 
-    {%  show_table_clients %}
+    {%  show_table_clients ftr %}
 
     <div class="col  mt-2 btn-table">
         <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Добавить</button>
@@ -31,7 +31,7 @@
 {##}
 {##}
 {#    </div>#}
-{% modal_window_add errors form formset %}
+{% modal_window_add  form form_add_auto message %}
 {#    <div class="btn-group-lg" role="group" aria-label="client_base">#}
 {#        <button type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#staticBackdrop">Добавить</button>#}
 {#        <button type="button" class="btn btn-warning">Редактировать</button>#}

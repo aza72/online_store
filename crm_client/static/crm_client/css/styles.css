@@ -182,3 +182,42 @@ thead  {
 .btn-table button:hover{
     background-color: #8a7c9c;
 }
+/*стилизация формы добавления клиента*/
+#id_name, #id_surname, #id_patronymic, #id_car, #id_model_car, #id_telephone, #id_vin{
+    height:2rem;
+    width: 80%;
+}
+/*стилизация формы добавления автомобиля*/
+#id_auto_brand, #id_add_auto_brand, #id_add_model{
+    height:2rem;
+    width: 100%;
+}
+
+.new_add_brand_label{
+    display: none;
+}
+.new_add_model_label{
+   display: none;
+}
+/*Поиск*/
+#id_search{
+    width: 20rem;
+    height:2.5rem;
+    border-color:#8a7c9c;
+}
+.ser {
+  height: 2.5rem;
+
+}
+.ser:hover{
+    transform:scale(1.1);
+    /*height: 2.6rem;*/
+}
+.ser:active, .reset-search:active{
+    transform:scale(0.9);
+}
+
+.reset-search{
+    background: black;
+    color: white;
+}

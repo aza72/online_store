@@ -23,7 +23,7 @@ class Crm_client(models.Model):
 
 class BrandAuto(models.Model):
     auto_brand = models.CharField(blank=True, max_length=255, verbose_name='Марка авто')
-
+    sort = models.IntegerField(null=True, verbose_name='Позиция')
 
     def __str__(self):
         return self.auto_brand

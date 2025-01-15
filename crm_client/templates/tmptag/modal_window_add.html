@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <!-- Модальное окно -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -7,7 +9,7 @@
         <h5 class="modal-title" id="staticBackdropLabel">Добавить нового клиента</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
-      <div class="modal-body add-client">
+      <div class="modal-body text-center add-client">
 
           <form id="myNameForm" method="post">
               {% csrf_token %}
@@ -16,7 +18,7 @@
           </form>
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Добавить автомобиль</button>
+          <button type="button" class="btn btn-primary add_auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Добавить автомобиль</button>
           <button type="button" class="btn btn-primary add-button" >Сохранить</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
 
@@ -29,20 +31,79 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Добавить автомобиль</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        <h5 class="modal-title " id="staticBackdropLabel">Добавить автомобиль</h5>
+
+        <button type="button" class="btn-close add-auto-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
       <div class="modal-body add-auto">
           <form id="myFormAddAuto" method="post">
               <div class="message-auto">{{ message }}</div>
             {% csrf_token %}
-            {{ formset.as_p }}
+{#            {{ form_add_auto.as_p }}#}
+             <div class=" add_brand_label">
+                 {{ form_add_auto.auto_brand.field.label }}
+                 <div class="add_brand_choice">{{ form_add_auto.auto_brand }}</div>
+             </div>
+
+              <div class=" mt-3 new_add_brand_label">
+                 {{ form_add_auto.add_auto_brand.field.label }}
+                 <div class="new_add_brand">{{ form_add_auto.add_auto_brand }}</div>
+             </div>
+              <div class=" mt-3 new_add_model_label">
+                 {{ form_add_auto.add_model.field.label }}
+                 <div class="new_add_model">{{ form_add_auto.add_model }}</div>
+             </div>
+
+{#              <input id="seed_one" type="text" name="seed_one"/>#}
+{#            <table>#}
+{#                <tbody>#}
+{#                    <tr>#}
+{#                        <th>#}
+{#                            {{ form_add_auto.auto_brand.field.label }}#}
+{##}
+{#                        </th>#}
+{#                        <td>#}
+{##}
+{#                            {{ form_add_auto.auto_brand }}#}
+{#                        </td>#}
+{##}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>#}
+{#                            {{ form_add_auto.add_auto_brand.field.label }}#}
+{#                        </th>#}
+{#                        <td>#}
+{#                            {{ form_add_auto.add_auto_brand }}#}
+{#                        </td>#}
+{##}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>#}
+{#                            {{ form_add_auto.model.field.label }}#}
+{#                        </th>#}
+{#                        <td>#}
+{#                            {{ form_add_auto.model }}#}
+{#                        </td>#}
+{##}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>#}
+{#                            {{ form_add_auto.add_model.field.label }}#}
+{#                        </th>#}
+{#                        <td>#}
+{#                            {{ form_add_auto.add_model }}#}
+{#                        </td>#}
+{##}
+{#                    </tr>#}
+{#                </tbody>#}
+{#            </table>#}
+
           </form>
       </div>
       <div class="modal-footer">
 
           <button type="button" class="btn btn-primary add-modal-button">Сохранить</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Назад</button>
+          <button type="button" class="btn btn-secondary add-auto-back" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Назад</button>
       </div>
     </div>
   </div>

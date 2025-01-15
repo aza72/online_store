@@ -1,6 +1,6 @@
 from django import template
 
-from crm_client.forms import AddRecordClient
+# from crm_client.forms import AddRecordClient
 from crm_client.models import Crm_client
 
 register = template.Library()
@@ -17,13 +17,13 @@ def show_header_menu():
     return {"header_menu_items": header_menu_items,}
 
 @register.inclusion_tag('tmptag/modal_window_add.html')
-def modal_window_add(errors,form,formset):
+def modal_window_add(form,form_add_auto,message):
     # form = AddRecordClient()
     # form_auto = AutoClient()
-    errors = errors
-    return {'form':form, 'formset':formset, 'errors':errors}
+    # errors = errors
+    return {'form':form, 'form_add_auto':form_add_auto,  'message':message}
 
 @register.inclusion_tag('tmptag/table_clients.html')
-def show_table_clients():
-    client = Crm_client.objects.all()
-    return {'client':client}
+def show_table_clients(ftr):
+    # client = Crm_client.objects.filter(surname='77')
+    return { 'ftr':ftr }

@@ -1,21 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db.models import Case, When, Value, IntegerField
+from django.utils.safestring import mark_safe
 
-from crm_client.models import Crm_client, BrandAuto, ModelAuto
+from crm_client.models import *
 from crm_client.views import *
 
 
-# class AddRecordClient(forms.Form):
-#
-#     name = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
-#     surname = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
-#     patronymic = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Отчество'}))
-#     car = forms.ModelChoiceField(empty_label='Авто',label=False, queryset=BrandAuto.objects.all())
-#     telephone = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
-#     vin = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'VIN-номер'}))
-#     #ord = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Заказы'}))
-#     #bonuses = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Бонусы'}))
-#     # data_create = forms.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
 class AddRecordClient(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -24,8 +15,8 @@ class AddRecordClient(forms.ModelForm):
         self.fields['name'] = forms.CharField(required=False, label=False, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
         self.fields['surname'] = forms.CharField(label=False,required=False, widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
         self.fields['patronymic'] = forms.CharField(label=False,required=False, widget=forms.TextInput(attrs={'placeholder': 'Отчество'}))
-        self.fields['car'] = forms.ModelChoiceField(empty_label='Марка авто',label=False, required=False, queryset=BrandAuto.objects.all())
-        self.fields['model_car'] = forms.ModelChoiceField(empty_label='Модель авто', label=False, required=False, queryset=ModelAuto.objects.all())
+        self.fields['car'] = forms.ModelChoiceField(empty_label='Марка авто',label=False, required=False, queryset=BrandAuto.objects.exclude(pk=6))
+        self.fields['model_car'] = forms.ModelChoiceField(empty_label='Модель авто', label=False, required=False, queryset=ModelAuto.objects.exclude(pk=4))
         self.fields['telephone'] = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
         self.fields['vin'] = forms.CharField(label=False, required=False, widget=forms.TextInput(attrs={'placeholder': 'VIN-номер'}))
 
@@ -77,15 +68,54 @@ class AddRecordClient(forms.ModelForm):
 #         return brand
 
 
-class ModelAutoForm(forms.ModelForm):
+# class ModelAutoForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = ModelAuto
+#         exclude = ('brand',)
+#
+#
+# class BrandAutoForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = BrandAuto
+#         fields = '__all__'
 
-    class Meta:
-        model = ModelAuto
-        exclude = ('brand',)
+
+# Форма добавления авто в бд
+class AddAutoForm(forms.Form):
+    auto_brand = forms.ModelChoiceField(label=mark_safe('<strong>Марка авто</strong>'), empty_label='Выберите марку',
+                                        queryset=BrandAuto.objects.none(),)
+    add_auto_brand = forms.CharField(label=mark_safe('<strong>Добавить марку автомобиля</strong>'))
+    # model = forms.ModelChoiceField(label='Модель авто', empty_label='Выберите модель', queryset=ModelAuto.objects.all())
+    add_model = forms.CharField(label=mark_safe('<strong>Добавить модель автомобиля</strong>'))
 
 
-class BrandAutoForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['add_auto_brand'].required = False
+        self.fields['add_model'].required = False
+        q_sort = BrandAuto.objects.annotate(
+            order=Case(
+                When(pk=6, then=Value(1)),
+                default=Value(2),
+                output_field=IntegerField()
+            )
+        ).order_by('order', 'auto_brand')
+        self.fields['auto_brand'].queryset = q_sort
 
-    class Meta:
-        model = BrandAuto
-        fields = '__all__'
+class SearchClientForm(forms.Form):
+    search = forms.CharField(label=False, widget=forms.TextInput(attrs={'placeholder': 'Поиск...'}))
+
+
+    # def clean_add_auto_brand(self):
+    #     add_auto_brand = self.cleaned_data['add_auto_brand']
+    #     if not add_auto_brand:
+    #         raise forms.ValidationError(mark_safe('<strong>"Добавить марку автомобиля"</strong> Обязательное поле'))
+    #     return add_auto_brand
+    #
+    # def clean_add_model(self):
+    #     add_model = self.cleaned_data['add_model']
+    #     if not add_model:
+    #         raise forms.ValidationError(mark_safe('<strong>"Добавить модель автомобиля"</strong> Обязательное поле'))
+    #     return add_model

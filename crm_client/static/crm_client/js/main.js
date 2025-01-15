@@ -2,6 +2,8 @@
 // Клик по флажку
 // $(".form-check-input").click(function(event){
 $(document).on('click',".form-check-input", function() {
+
+
 // проверка есть хотя бы 1 выделенный чекбокс
      if ($(".form-check-input:checked").length > 0){
 // делаем кнопку активной
@@ -126,12 +128,15 @@ $(".add-modal-button").click(function() {
     type: 'POST',
     data: form,
     success: function(data) {
+           $('.add-modal-button').prop('disabled', true);
            let error = $(data).find('.errorlist'); //Проверка на ошибки в форме
            if (error.length) {
-                    $(".add-auto").html($(data).find('#myNameForm'));
+               $("#myFormAddAuto").html($(data).find('.add-auto'));
+               alert('Error!!!');
            }
            else {
-               $("#myFormAddAuto").html($(data).find('.message-auto'));
+               $(".add-auto").html($(data).find('#myFormAddAuto'));
+               $(".add-client").html($(data).find('#myNameForm'));
            }
 
         }
@@ -139,3 +144,115 @@ $(".add-modal-button").click(function() {
 
 
 });
+
+//Событие загрузки документа
+$(document).ready(function() {
+    //Делаем кнопку "Сохранить" активной
+    let body = $('body');
+    $('.add-modal-button').prop('disabled', true);
+    //Событие изменения выбора марки
+    body.on('change', '.add_brand_choice', function () {
+    // Скрытие поля марки
+        let choice = $('#id_auto_brand');
+        if (choice.val() === '6') {
+            $('.new_add_brand_label').show();
+
+        } else {
+            $('.new_add_brand_label').hide();
+        }
+        //Скрытие поля модели авто
+        if (choice.val() !== ''){
+            $('.new_add_model_label').show();
+        }
+        else {
+            $('.new_add_model_label').hide();
+        }
+
+    });
+    //Собитие изменения текстовых полей формы скрытие появление кнопки
+    body.on('keyup', '#id_add_auto_brand, #id_add_model', function () {
+        // $('#id_add_auto_brand, #id_add_model').keyup(function () {
+        let new_brand = $('#id_add_auto_brand');
+        let new_model = $('#id_add_model');
+
+
+        if (new_brand.val().length && new_model.val().length) {
+            $('.add-modal-button').prop('disabled', false);
+        } else {
+            $('.add-modal-button').prop('disabled', true);
+        }
+
+
+    //Делаем кнопку активной\неактивной если выбрана существующая марка
+        let choice = $('#id_auto_brand').val();
+
+        if (choice !== '6' && choice !== '' ) {
+            if (new_model.val().length) {
+                $('.add-modal-button').prop('disabled', false);
+            } else {
+                $('.add-modal-button').prop('disabled', true);
+            }
+
+        }
+        // else {
+        //     if (new_model.val().length){
+        //         $('.add-modal-button').prop('disabled', false);
+        //     }
+        //
+        // }
+
+
+    });
+
+    // body.on('ready', '#myFormAddAuto', function () {
+    //     $('.add-modal-button').prop('disabled', true);
+    // });
+    //Сброс полей формы при нажатии клавиши закрыть
+    body.on('click', '.add-auto-close, .add-auto-back', function () {
+        $('#myFormAddAuto')[0].reset();
+    });
+
+    // body.on('keyup', '#seed_one',function () {
+
+//поиск
+    body.on('click', '.ser', function () {
+        let form = $('#form-search').serialize() + "&method=search" ;
+
+    $.ajax({
+    url: "/client-base/",
+    type: 'POST',
+    data: form,
+        success: function(data) {
+            // $('.add-modal-button').prop('disabled', true);
+            let error = $(data).find('.errorlist'); //Проверка на ошибки в форме
+            if (error.length) {
+                $("#myFormAddAuto").html($(data).find('.add-auto'));
+                alert('Error!!!');
+            }
+            else {
+                console.log(data);
+                $(".wrp").html($(data).find('.table'));
+                $('.ert').html($(data).find('.ert'));
+            }
+        }
+    });
+
+});
+
+//Сброс поиска
+ body.on('click', '.reset-search', function () {
+
+    $.ajax({
+        url: "/client-base/",
+        type: 'GET',
+        // data: form,
+        success: function (data) {
+            $(".wrp").html($(data).find('.table'));
+            $('#form-search')[0].reset();
+        }
+    });
+ });
+
+//закрытие
+});
+

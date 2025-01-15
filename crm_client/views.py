@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.db.models import Q
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -8,15 +9,16 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView, ListView
 
 from crm_client.forms import *
-from crm_client.forms import AddRecordClient
-from crm_client.models import Crm_client, BrandAuto
+from crm_client.forms import SearchClientForm
+# from crm_client.forms import AddRecordClient
+from crm_client.models import Crm_client, BrandAuto, ModelAuto
 from crm_client.tables import Crm_client_Table
 # Create your views here.
 from django_tables2 import SingleTableView, LazyPaginator, SingleTableMixin, RequestConfig
 from django.views.generic.edit import FormView, DeleteView
 
 from crm_client.templatetags.common_tags import modal_window_add
-from crm_client.utils import get_records, check_brand
+from crm_client.utils import get_records, check_brand, control_match_upper_register, get_or_none, search_client
 
 
 class clientListView(SingleTableView):
@@ -194,23 +196,41 @@ def custom_middleware(request,**kwargs):
 
 
 
-class BaseClientView(ListView):
+class Crm_clientListView(ListView):
     model = Crm_client
     template_name = 'crm_client/client_base.html'
+    context_object_name = 'ftr'
+    queryset = Crm_client.objects.all()
     message = None    #Сообщения в таблицу
     form = AddRecordClient()
-    formset = ModelAutoForm()
-    # errors = None   #Ошибки валидации формы добавления
+    form_add_auto = AddAutoForm()
+    search_client_form = SearchClientForm()
+    errors = None   #Ошибки валидации формы добавления
+
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['frd'] = Crm_client.objects.all()
         context['form'] = self.form
-        context['formset'] = self.formset
+        context['form_add_auto'] = self.form_add_auto
+        context['search_client_form'] = self.search_client_form
         if self.message is not None:
             context['message'] = self.message
-        # if self.errors is not None:
-        #     context['errors'] = self.errors
+        if self.errors is not None:
+            context['errors'] = self.errors
         return context
+
+    def get_queryset(self):
+    #     print('queryset')
+    #     qs = super().get_queryset()
+        if (self.request.POST.get("method") == "search"):
+            query = search_client(self)
+
+            if not query.exists():
+                self.message='По вашему запросу ничего не найдено'
+            return query
+        return Crm_client.objects.all()
     def post(self,request,*args,**kwargs): #Прием ajax запроса
         self.object_list = self.get_queryset()
         # self.message = self.message
@@ -231,33 +251,60 @@ class BaseClientView(ListView):
                 self.form = form
 
         elif (request.POST.get("method") == "add_auto"):  # если нажата кнопка add_auto
-            BrandFormset = inlineformset_factory(BrandAuto,ModelAuto)
-            # self.formset = BrandFormset()
+            form_add_auto = AddAutoForm(request.POST)
+
+            print(form_add_auto.errors)
+            if form_add_auto.is_valid():
+                auto_brand = form_add_auto.cleaned_data['auto_brand']
+                add_auto_brand = form_add_auto.cleaned_data['add_auto_brand']
+                add_model = form_add_auto.cleaned_data['add_model']
+                # Верхний регистр
+                add_auto_brand = add_auto_brand.upper()
+                add_model = add_model.upper()
+                #Если марка авто существует
+                if (auto_brand.pk == 6):
+
+                    chek_brand = get_or_none(BrandAuto,auto_brand = add_auto_brand)
+                    check_model = get_or_none(ModelAuto,model_brand=add_model)
+                    if (chek_brand and check_model):
+                        print(chek_brand)
+                        brand = BrandAuto.objects.create(auto_brand=add_auto_brand)
+                        ModelAuto.objects.create(model_brand=add_model, auto_brand=brand)
+                        self.message = 'Автомобиль успешно добавлен'
+                    else:
+
+                        if (not chek_brand):
+                            self.message = 'Марка автомобиля уже существует.'
+                        if(not check_model):
+                            self.message += ' Модель автомобиля уже существует.'
 
 
+                else:
+                    ModelAuto.objects.create(model_brand=add_model, auto_brand=auto_brand)
+                    self.message = 'Автомобиль успешно добавлен'
+                self.form_add_auto = AddAutoForm()
+            else:
+                self.message = ('Ошибка!!! Какое-то из полей заполнено не верно!'
+                                'Попробуйте обновить страницу и попробовать снова. ')
+                self.form_add_auto = form_add_auto
 
+        # elif (request.POST.get("method") == "search"):  # если нажата кнопка search
+        #     search_client_form = SearchClientForm(request.POST)
+        #     # if search_client_form.is_valid():
+        #     #     search_query = search_client_form.cleaned_data['search']
+        #     #     result = search_client(search_query)
+        #     print('post')
+        #
+        #     self.search_client_form = SearchClientForm()
 
-
-
-            # req = check_brand(request)
-            # request.POST = req
-            # form = AutoClient(request.POST)
-            # print(form)
-            # form['brand'] = req
-
-            # if form.is_valid():
-            #     self.form = AutoClient()
-            #     self.message = 'Автомобиль успешно добавлен'
-            #
-            # else:
-            #     self.form = form
 
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
             
+# class Crm_clientListVieww(ListView):
+#     model = Crm_client
+#     template_name = 'crm_client/test.html'
+#     # context_object_name = 'ftr'
+#     # queryset = Crm_client.objects.all()
 
 
-
-    # def get_queryset(self):
-    #     object_list = Crm_client.objects.all()
-    #     return object_list
